@@ -1,0 +1,17 @@
+# 1. specify base image
+FROM node:10.24.0-alpine
+
+# 1.1 SPecify the work dir
+WORKDIR '/app'
+
+# 2. Copy package.json
+COPY ./package*.json ./
+
+# 3. run npm install
+RUN npm install
+
+# 4. copy rest
+COPY . .
+
+# 5. specify startup command
+CMD [ "npm", "run", "start" ]
