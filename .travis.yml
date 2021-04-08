@@ -1,0 +1,32 @@
+language: generic
+sudo: required
+service:
+  - docker
+
+#Before install build test version of project and ran some tests
+before_install:
+  - docker build -t prafullpol/multi-docker-test -f ./client/Dockerfile.dev ./client
+  # Build context will be the client directory
+
+script:
+  - docker run -e CI=true prafullpol/multi-docker-test npm test -- --coverage
+  # override the default command to run tests and provide hook to exit with code
+
+# Build prod version of app
+after_success:
+  - docker build -t prafullpol/multi-docker-client ./client
+  - docker build -t prafullpol/multi-docker-nginx ./nginx
+  - docker build -t prafullpol/multi-docker-server ./server
+  - docker build -t prafullpol/multi-docker-worker ./worker
+  # Take above images and push to docker hub
+  # 1. Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | locker login -u "$DOCKER_ID" --password-stdin
+  # 2. Push those images to the docker hub
+  - docker push prafullpol/multi-docker-client
+  - docker push prafullpol/multi-docker-nginx
+  - docker push prafullpol/multi-docker-server
+  - docker push prafullpol/multi-docker-worker
+
+
+
+
