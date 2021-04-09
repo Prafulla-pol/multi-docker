@@ -20,7 +20,7 @@ after_success:
   - docker build -t prafullpol/multi-docker-worker ./worker
   # Take above images and push to docker hub
   # 1. Login to the docker CLI
-  - echo "$DOCKER_PASSWORD" | locker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # 2. Push those images to the docker hub
   - docker push prafullpol/multi-docker-client
   - docker push prafullpol/multi-docker-nginx
