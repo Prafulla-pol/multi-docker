@@ -1,6 +1,6 @@
 {
     "AWSEBDockerrunVersion": 2,
-    "contaiznerDefinitions" : [
+    "containerDefinitions" : [
         {
             "name": "client",
             "image": "prafullpol/multi-docker-client",
