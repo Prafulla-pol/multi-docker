@@ -1,0 +1,36 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions" : [
+        {
+            "name": "client",
+            "image": "prafullpol/multi-docker-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "prafullpol/multi-docker-sever",
+            "hostname": "api",
+            "essential": false
+        },
+        {
+            "name": "worker",
+            "image": "prafullpol/multi-docker-worker",
+            "hostname": "worker",
+            "essential": false
+        },
+        {
+          "name": "nginx",
+          "image": "prafullpol/multi-docker-nginx",
+          "hostname": "nginx",
+          "essential": true,
+          "portMappings": [
+              {
+                  "hostPort": 80,
+                  "containerPort": 80
+              }
+          ],
+          "links": ["client", "server"]
+        }
+    ]
+}

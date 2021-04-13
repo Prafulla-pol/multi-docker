@@ -27,6 +27,17 @@ after_success:
   - docker push prafullpol/multi-docker-server
   - docker push prafullpol/multi-docker-worker
 
+deploy:
+  provider: elasticbeanstalk
+  region: us-east-2
+  app: multi-docker
+  bucket_name: elasticbeanstalk-us-east-2-926990747009
+  bucket_path: multi-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+
 
 
 
